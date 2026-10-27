@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Processo Iveco Stralis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: dossiê de uma coluna; placa do veículo abre a página, linha do tempo com datas em coluna fixa, fichas técnicas em grade */
+:root{
+  --bg:#eef0ef; --paper:#ffffff; --ink:#1b2027; --muted:#58616b; --rule:#d3d8db;
+  --accent:#e0a100; --accent-ink:#7d5400; --alert:#a8231b; --alert-bg:#fbeceb;
+  --display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+  --body:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#12161b; --paper:#1a1f26; --ink:#e5e8eb; --muted:#9aa3ad; --rule:#2c333b;
+  --accent:#f0b429; --accent-ink:#f0b429; --alert:#ff8f85; --alert-bg:#2b1a19; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#12161b; --paper:#1a1f26; --ink:#e5e8eb; --muted:#9aa3ad; --rule:#2c333b;
+  --accent:#f0b429; --accent-ink:#f0b429; --alert:#ff8f85; --alert-bg:#2b1a19; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:1.0625rem;line-height:1.6;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:52rem;margin:0 auto;padding-block:2.5rem 4rem;display:flex;flex-direction:column;gap:3.5rem}
+h1,h2,h3{font-family:var(--display);font-weight:700;line-height:1.05;text-wrap:balance;margin:0}
+h1{font-size:clamp(2.4rem,7vw,3.8rem);letter-spacing:.005em}
+h2{font-size:1.9rem;text-transform:uppercase;letter-spacing:.03em}
+h3{font-size:1.25rem;letter-spacing:.02em}
+p{margin:0;max-width:65ch}
+.eyebrow{font-family:var(--mono);font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.mono{font-family:var(--mono);font-size:.92em}
+section{display:flex;flex-direction:column;gap:1.25rem}
+.sec-head{display:flex;flex-direction:column;gap:.35rem;border-top:3px solid var(--ink);padding-top:.75rem}
+
+/* Hero */
+.hero{display:flex;flex-direction:column;gap:1.5rem}
+.plate{align-self:flex-start;display:inline-flex;flex-direction:column;align-items:center;
+  border:3px solid var(--ink);border-radius:8px;padding:.15rem 1.1rem .35rem;background:var(--paper)}
+.plate small{font-family:var(--mono);font-size:.66rem;letter-spacing:.3em;color:var(--muted)}
+.plate b{font-family:var(--mono);font-weight:500;font-size:clamp(1.9rem,6vw,2.6rem);letter-spacing:.14em;line-height:1.1}
+.lede{font-size:1.2rem;color:var(--ink)}
+.status{display:inline-flex;align-items:center;gap:.5rem;align-self:flex-start;font-family:var(--mono);font-size:.82rem;
+  padding:.35rem .7rem;border-radius:999px;background:var(--alert-bg);color:var(--alert);border:1px solid currentColor}
+.status::before{content:"";width:.5rem;height:.5rem;border-radius:50%;background:currentColor}
+
+.figs{display:grid;grid-template-columns:repeat(auto-fit,minmax(11rem,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule)}
+.fig{background:var(--paper);padding:1rem 1.1rem;display:flex;flex-direction:column;gap:.2rem;min-width:0}
+.fig .v{font-family:var(--display);font-weight:700;font-size:2rem;font-variant-numeric:tabular-nums;line-height:1}
+.fig .k{font-size:.92rem;color:var(--muted);line-height:1.35}
+.fig.hl .v{color:var(--alert)}
+
+/* Ficha */
+.spec{display:grid;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));gap:0 2rem;margin:0}
+.spec div{display:flex;justify-content:space-between;gap:1rem;padding:.55rem 0;border-bottom:1px solid var(--rule);min-width:0}
+.spec dt{color:var(--muted);font-size:.95rem}
+.spec dd{margin:0;text-align:right;overflow-wrap:anywhere}
+
+/* Linha do tempo */
+.tl{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.tl li{display:grid;grid-template-columns:8.5rem 1fr;gap:1.25rem;padding:1rem 0;border-bottom:1px solid var(--rule);position:relative}
+.tl time{font-family:var(--mono);font-size:.88rem;color:var(--accent-ink);font-variant-numeric:tabular-nums;padding-top:.15rem}
+.tl .c{display:flex;flex-direction:column;gap:.3rem;min-width:0}
+.tl li.key time{font-weight:500}
+.tl li.key h3{color:var(--alert)}
+.tl p{color:var(--muted);font-size:1rem}
+@media (max-width:520px){.tl li{grid-template-columns:1fr;gap:.3rem}}
+
+/* Danos */
+.damage{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));gap:.5rem 2rem}
+.damage li{display:flex;gap:.6rem;align-items:baseline;padding:.4rem 0;border-bottom:1px dashed var(--rule)}
+.damage li::before{content:"✕";font-family:var(--mono);color:var(--alert);font-size:.85rem}
+
+/* Despesas */
+.tbl-wrap{overflow-x:auto;border:1px solid var(--rule);background:var(--paper)}
+table{border-collapse:collapse;width:100%;min-width:30rem;font-size:.98rem}
+th,td{text-align:left;padding:.65rem .9rem;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font-family:var(--mono);font-weight:500;font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;font-family:var(--mono);font-size:.92rem}
+tr.total td{font-weight:600;border-bottom:none}
+.note{font-size:.95rem;color:var(--muted)}
+
+/* Posições */
+.sides{display:grid;grid-template-columns:repeat(auto-fit,minmax(18rem,1fr));gap:1.5rem}
+.side{display:flex;flex-direction:column;gap:.75rem;min-width:0}
+.side h3{display:flex;align-items:center;gap:.5rem}
+.side h3::before{content:"";width:.8rem;height:.8rem;background:var(--accent)}
+.side.gov h3::before{background:var(--muted)}
+.side ol,.side ul{margin:0;padding-left:1.2rem;display:flex;flex-direction:column;gap:.5rem}
+.quote{border-left:3px solid var(--accent);padding:.25rem 0 .25rem 1rem;font-size:.98rem;color:var(--muted)}
+
+.docs{display:grid;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));gap:1rem}
+.doc{border:1px solid var(--rule);background:var(--paper);padding:1rem;display:flex;flex-direction:column;gap:.35rem;min-width:0}
+.doc .eyebrow{color:var(--accent-ink)}
+.doc p{font-size:.95rem;color:var(--muted)}
+
+footer{font-size:.88rem;color:var(--muted);border-top:1px solid var(--rule);padding-top:1rem}
+a{color:var(--accent-ink)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+</style>
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}</style>
+</head>
+<body>
+
+<div class="wrap">
+
+<header class="hero">
+  <span class="eyebrow">Leilão SENAD/PR 08/2026 · Lote 13</span>
+  <div class="plate" aria-label="Placa HGB-3830, Paraná"><small>PARANÁ · CURITIBA</small><b>HGB·3830</b></div>
+  <h1>Arrematei um Iveco Stralis em leilão da SENAD e o recebi sem as peças do motor</h1>
+  <p class="lede">O caminhão foi arrematado em 18 de agosto de 2026. Ao vistoriá-lo no pátio em Maringá, encontrei o cabeçote danificado e dezenas de componentes retirados. Registrei boletim de ocorrência e pedi o desfazimento da compra. A Comissão de Alienação de Bens do Paraná negou o pedido em 18 de setembro de 2026.</p>
+  <span class="status">Pedido de desfazimento negado na via administrativa</span>
+  <div class="figs" role="list">
+    <div class="fig" role="listitem"><span class="v">R$ 42.840</span><span class="k">pagos no leilão (arremate + comissão)</span></div>
+    <div class="fig" role="listitem"><span class="v">R$ 60.000</span><span class="k">valor de avaliação do bem no edital</span></div>
+    <div class="fig hl" role="listitem"><span class="v">R$ 45.000</span><span class="k">prejuízo estimado em peças ausentes (B.O.)</span></div>
+    <div class="fig hl" role="listitem"><span class="v">R$ 78.500</span><span class="k">prejuízo total apresentado à SENAD</span></div>
+  </div>
+</header>
+
+<section aria-labelledby="veiculo">
+  <div class="sec-head"><span class="eyebrow">O bem arrematado</span><h2 id="veiculo">Ficha do veículo</h2></div>
+  <dl class="spec">
+    <div><dt>Marca / modelo</dt><dd>Iveco Stralis HD 450S38TN1</dd></div>
+    <div><dt>Espécie</dt><dd>Tração (cavalo mecânico)</dd></div>
+    <div><dt>Ano fab. / modelo</dt><dd class="mono">2007 / 2007</dd></div>
+    <div><dt>Cor</dt><dd>Branca</dd></div>
+    <div><dt>Placa</dt><dd class="mono">HGB-3830 / PR</dd></div>
+    <div><dt>Chassi</dt><dd class="mono">93ZM2ARH078704462</dd></div>
+    <div><dt>Situação no edital</dt><dd>Circulação · motor a regularizar</dd></div>
+    <div><dt>Lance inicial</dt><dd class="mono">R$ 30.000,00</dd></div>
+    <div><dt>Vendedor</dt><dd>Ministério da Justiça e Segurança Pública (SENAD)</dd></div>
+    <div><dt>Depósito</dt><dd>Pátio credenciado em Maringá/PR</dd></div>
+  </dl>
+  <p class="note">Origem: o caminhão foi apreendido em Maringá em 22/08/2023, em ação penal por tráfico de drogas (Ação Penal <span class="mono">0002664-32.2023.8.16.0210</span>, Vara Criminal de Paiçandu/PR), e declarado perdido em favor da União. Processo SEI <span class="mono">08129.004583/2025-70</span>.</p>
+</section>
+
+<section aria-labelledby="linha">
+  <div class="sec-head"><span class="eyebrow">Cronologia</span><h2 id="linha">Linha do tempo</h2></div>
+  <ol class="tl">
+    <li><time datetime="2023-08-22">22/08/2023</time><div class="c"><h3>Apreensão do caminhão</h3><p>Apreendido em Maringá com um semirreboque. O auto de exibição e apreensão registra o caminhão como “avariado”.</p></div></li>
+    <li><time datetime="2026-06-10">10/06/2026</time><div class="c"><h3>Avaliação para leilão</h3><p>Bem avaliado em R$ 60.000,00, com lance inicial de R$ 30.000,00 na 1ª praça.</p></div></li>
+    <li class="key"><time datetime="2026-08-18">18/08/2026</time><div class="c"><h3>Arrematação no Leilão SENAD/PR 08/2026</h3><p>Lote 13 arrematado por R$ 40.800,00, mais R$ 2.040,00 de comissão do leiloeiro. Total de R$ 42.840,00, pago à vista.</p></div></li>
+    <li><time datetime="2026-08-25">25/08/2026</time><div class="c"><h3>Compra da carreta em Dourados/MS</h3><p>Arrematação de um semirreboque SR Guerra AG GR (placa IOF-6I11) em outro leilão de bens do tráfico, retirado do pátio da Polícia Civil de Dourados com guincho e procuração.</p></div></li>
+    <li><time datetime="2026-08-28">28/08/2026</time><div class="c"><h3>Regularização do Stralis</h3><p>Pagamento do IPVA (R$ 1.357,37) e das taxas de licenciamento ao Governo do Paraná.</p></div></li>
+    <li class="key"><time datetime="2026-09-08">08 a 14/09/2026</time><div class="c"><h3>Vistoria e constatação dos danos</h3><p>No pátio faltavam as baterias e o braço telescópico do trambulador. Na oficina, foi constatado que o cabeçote foi trocado por um danificado e que comando de válvulas, bicos injetores e balancins foram retirados.</p></div></li>
+    <li class="key"><time datetime="2026-09-14">14/09/2026</time><div class="c"><h3>Boletim de ocorrência</h3><p>B.O. <span class="mono">2026/1215307</span> na Delegacia de Polícia de Paiçandu, natureza furto simples, com prejuízo estimado em R$ 45.000,00 em peças.</p></div></li>
+    <li><time>Setembro de 2026</time><div class="c"><h3>Pedido de desfazimento</h3><p>Solicitação ao leiloeiro de cancelamento da venda, devolução dos valores e indenização pelos gastos com transporte e desmontagem do motor, com fotos e o B.O.</p></div></li>
+    <li class="key"><time datetime="2026-09-18">18/09/2026</time><div class="c"><h3>Negativa da Comissão (Of. 127/2026-CEPSD)</h3><p>A Comissão de Avaliação e Alienação de Bens do Paraná recusou a devolução dos valores e a indenização.</p></div></li>
+  </ol>
+</section>
+
+<section aria-labelledby="danos">
+  <div class="sec-head"><span class="eyebrow">Constatado na oficina</span><h2 id="danos">Peças ausentes e danos</h2></div>
+  <ul class="damage">
+    <li>Cabeçote com danos graves, com fissura na fundição</li>
+    <li>6 bicos injetores ausentes</li>
+    <li>Comando de válvulas ausente</li>
+    <li>Múltiplas válvulas ausentes</li>
+    <li>Balancins ausentes ou danificados</li>
+    <li>2 válvulas de retorno ausentes</li>
+    <li>Tubulações do ar comprimido ausentes</li>
+    <li>Braço telescópico do trambulador ausente</li>
+    <li>Baterias ausentes</li>
+    <li>Alternador danificado</li>
+    <li>Bomba acoplada à caixa de câmbio ausente</li>
+  </ul>
+  <p class="note">Segundo o B.O., a retirada dessas peças exige equipamento e mão de obra especializada.</p>
+</section>
+
+<section aria-labelledby="custos">
+  <div class="sec-head"><span class="eyebrow">Comprovantes</span><h2 id="custos">Custos documentados</h2></div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Item</th><th>Data</th><th class="n">Valor</th></tr></thead>
+      <tbody>
+        <tr><td>Arremate do Stralis (lote 13)</td><td class="mono">18/08/2026</td><td class="n">R$ 40.800,00</td></tr>
+        <tr><td>Comissão do leiloeiro (5%)</td><td class="mono">18/08/2026</td><td class="n">R$ 2.040,00</td></tr>
+        <tr><td>IPVA do Stralis</td><td class="mono">28/08/2026</td><td class="n">R$ 1.357,37</td></tr>
+        <tr><td>Taxas de licenciamento (PR)</td><td class="mono">28/08/2026</td><td class="n">R$ 328,08</td></tr>
+        <tr><td>Passagens (dois trechos)</td><td class="mono">22/09/2026</td><td class="n">R$ 1.285,32</td></tr>
+        <tr class="total"><td>Subtotal dos itens listados</td><td></td><td class="n">R$ 45.810,77</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">A pasta reúne ainda comprovantes de guincho, peças, ferramentas, filtro e óleo, diesel, hospedagens em Dourados, Ponta Porã e Maringá, transporte por aplicativo e alimentação durante as viagens. A carreta Guerra (R$ 26.775,00) tem custos próprios e está documentada à parte.</p>
+</section>
+
+<section aria-labelledby="posicoes">
+  <div class="sec-head"><span class="eyebrow">Pontos em disputa</span><h2 id="posicoes">As duas posições</h2></div>
+  <div class="sides">
+    <div class="side">
+      <h3>O que eu sustento</h3>
+      <ul>
+        <li>O caminhão foi retirado do pátio sem componentes essenciais do motor, que precisam de ferramenta e mecânico para serem removidos.</li>
+        <li>O B.O. registra furto de peças enquanto o bem estava sob a guarda do depósito.</li>
+        <li>O auto de apreensão indicaria que o caminhão chegou rodando, o que seria impossível sem as peças que hoje faltam.</li>
+        <li>Peço a devolução do valor pago e a indenização dos gastos com transporte e desmontagem.</li>
+      </ul>
+    </div>
+    <div class="side gov">
+      <h3>O que a Comissão respondeu</h3>
+      <ol>
+        <li>Os bens vão a leilão avaliados abaixo da tabela FIPE e começam com 50% da avaliação.</li>
+        <li>O edital trazia fotos do estado de conservação e o pátio esteve aberto para visitação.</li>
+        <li>Pelos itens 3.6, 3.7 e 6.4 do edital, quem não vistoria assume o risco e não pode desistir.</li>
+        <li>A avaliação e o edital já informavam o motor avariado, então a reclamação não foi acatada.</li>
+        <li>A administração não arca com o prejuízo de R$ 78.500,00, pois os bens são vendidos no estado em que se encontram.</li>
+      </ol>
+    </div>
+  </div>
+  <p class="quote">Um ponto central para a próxima fase é a diferença entre “motor a regularizar”, como constava no edital, e a ausência de cabeçote íntegro, injetores, comando e baterias constatada na retirada.</p>
+</section>
+
+<section aria-labelledby="docs">
+  <div class="sec-head"><span class="eyebrow">Dossiê</span><h2 id="docs">Documentos reunidos</h2></div>
+  <div class="docs">
+    <div class="doc"><span class="eyebrow">Aquisição</span><h3>Leilão SENAD</h3><p>Edital 790460, termo de arrematação, nota de venda, CRLV e processo SEI com sentença, acórdão e auto de apreensão.</p></div>
+    <div class="doc"><span class="eyebrow">Polícia</span><h3>Boletim de ocorrência</h3><p>B.O. 2026/1215307, Delegacia de Paiçandu, furto simples.</p></div>
+    <div class="doc"><span class="eyebrow">Provas</span><h3>Furto e desmonte</h3><p>Fotos e vídeos do veículo no pátio e na oficina em Maringá.</p></div>
+    <div class="doc"><span class="eyebrow">Administrativo</span><h3>Of. 127/2026-CEPSD</h3><p>Resposta da Comissão de Avaliação e Alienação de Bens do Paraná negando o desfazimento.</p></div>
+    <div class="doc"><span class="eyebrow">Carreta</span><h3>Leilão de Dourados</h3><p>Edital 07/2026, nota de venda, termo de entrega, procuração para retirada e CRLV.</p></div>
+    <div class="doc"><span class="eyebrow">Despesas</span><h3>Comprovantes</h3><p>IPVA, licenciamento, passagens, hospedagem, transporte, alimentação, guincho e peças.</p></div>
+  </div>
+</section>
+
+<footer>Resumo elaborado a partir dos documentos do processo, atualizado em outubro de 2026. Valores e datas conforme os comprovantes originais.</footer>
+</div>
+</body>
+</html>
